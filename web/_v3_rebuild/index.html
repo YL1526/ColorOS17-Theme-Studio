@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ColorOS 17 主题工坊</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo"><span></span></div>
+    <div class="brand-text">
+      <strong>ColorOS 17 主题工坊</strong>
+      <em id="brandSub">Theme Studio · 第三方主题生成器</em>
+    </div>
+  </div>
+  <div class="top-mid">
+    <span class="pill" id="tplPill">未选择模板</span>
+    <span class="pill ghost" id="pkgPill">—</span>
+  </div>
+  <div class="top-actions">
+    <button class="btn ghost" id="btnReloadTpl" title="重新解析模板">重新解析</button>
+    <button class="btn primary" id="btnExportTop">生成主题包</button>
+  </div>
+</header>
+
+<main class="layout">
+  <!-- 左侧步骤 -->
+  <aside class="rail">
+    <nav id="steps">
+      <button class="step" data-step="template"><i>1</i><span>选择模板</span></button>
+      <button class="step" data-step="color"><i>2</i><span>配色方案</span></button>
+      <button class="step" data-step="wallpaper"><i>3</i><span>壁纸</span></button>
+      <button class="step" data-step="icons"><i>4</i><span>图标</span></button>
+      <button class="step" data-step="assets"><i>5</i><span>界面资源</span></button>
+      <button class="step" data-step="meta"><i>6</i><span>信息 / 导出</span></button>
+    </nav>
+
+    <div class="rail-card">
+      <div class="rail-thumb" id="railThumb">无</div>
+      <div class="rail-meta">
+        <strong id="railName">尚未载入模板</strong>
+        <small id="railAuthor">—</small>
+      </div>
+    </div>
+
+    <div class="rail-note">
+      <b>原理</b>
+      <p>以真实 ColorOS 17 主题作为骨架，只替换其中的配色表、壁纸与图标，再按原结构重新打包，兼容性最高。</p>
+    </div>
+  </aside>
+
+  <!-- 中间预览 -->
+  <section class="stage">
+    <div class="stage-head">
+      <div class="seg scroll" id="viewSeg">
+        <button data-view="home" class="on">桌面</button>
+        <button data-view="lock">锁屏</button>
+        <button data-view="cc">控制中心</button>
+        <button data-view="volume">音量</button>
+        <button data-view="notify">通知</button>
+        <button data-view="settings">设置</button>
+        <button data-view="sms">短信</button>
+        <button data-view="dialer">电话</button>
+        <button data-view="about">关于本机</button>
+      </div>
+      <div class="stage-tip" id="stageTip">实时预览</div>
+    </div>
+
+    <div class="stage-body">
+      <div class="phone">
+        <div class="screen" id="screen" data-view="home">
+          <img class="wall" id="wallHome" alt="" />
+          <img class="wall lock-wall" id="wallLock" alt="" />
+          <div class="wall-shade"></div>
+
+          <div class="statusbar">
+            <span class="sb-time">19:20</span>
+            <span class="sb-right">
+              <i class="sb-ic sb-bt"></i><span class="rate"><b>8.00</b><small>KB/s</small></span>
+              <span class="sb-sig"><i></i><i></i><i></i><i></i></span>
+              <i class="sb-ic sb-wifi"></i>
+              <i class="sb-bat">34%</i>
+            </span>
+          </div>
+
+          <!-- 桌面 -->
+          <div class="page" data-page="home">
+            <div class="home-top">
+              <div class="cw-sub">10月23日 周五</div>
+              <div class="cw-time">19:19</div>
+              <div class="cw-sub">晴 29°</div>
+            </div>
+            <div class="grid" id="iconGrid"></div>
+            <div class="home-search">搜索<i></i></div>
+          </div>
+
+          <!-- 锁屏 -->
+          <div class="page" data-page="lock">
+            <div class="lock-top">
+              <div class="lock-date">10月23日 周五</div>
+              <div class="lock-time">19:19</div>
+              <div class="lock-carrier">中国电信 | 中国移动</div>
+            </div>
+            <div class="lock-bottom"><span class="la"></span><span class="la"></span></div>
+          </div>
+
+          <!-- 音量 -->
+          <div class="page" data-page="volume">
+            <div class="cc-blur"></div>
+            <img class="vol-bg" id="volBg" alt="" />
+            <div class="vol-body">
+              <div class="vol-label">系统音量</div>
+              <div class="vol-hint">媒体</div>
+              <div class="vol-stack">
+                <div class="vol-row"><div class="v-bar"><i style="height:56%"></i></div><span class="v-ic"></span></div>
+                <div class="vol-row"><div class="v-bar"><i style="height:40%"></i></div><span class="v-ic"></span></div>
+                <div class="vol-row"><div class="v-bar"><i style="height:66%"></i></div><span class="v-ic"></span></div>
+                <div class="vol-row"><div class="v-bar"><i style="height:28%"></i></div><span class="v-ic"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 控制中心 -->
+          <div class="page" data-page="cc">
+            <div class="cc-blur"></div>
+            <div class="cc-body">
+              <div class="cc-top">
+                <span class="circle-btn"></span>
+                <span class="cc-pill">智慧建议服务</span>
+                <span class="circle-btn"></span>
+              </div>
+              <div class="cc-carrier">中国电信 | 中国移动</div>
+              <div class="cc-grid">
+                <div class="cc-tile"><i></i><div><b>2F_5G</b><small>已连接</small></div></div>
+                <div class="cc-tile"><i></i><div><b>蓝牙</b><small>开</small></div></div>
+                <div class="cc-media"><span class="cm-art"></span><span class="cm-t">未在播放</span></div>
+                <div class="cc-sliders">
+                  <div class="vslider"><i style="height:62%"></i><em>☀</em></div>
+                  <div class="vslider"><i style="height:45%"></i><em>🔊</em></div>
+                </div>
+              </div>
+              <div class="cc-circles">
+                <div class="cs-item"><i class="on"></i><b>81.95 MB</b></div>
+                <div class="cs-item"><i class="on"></i><b>响铃</b></div>
+                <div class="cs-item"><i></i><b>手电筒</b></div>
+                <div class="cs-item"><i class="on"></i><b>定位服务</b></div>
+                <div class="cs-item"><i></i><b>飞行模式</b></div>
+                <div class="cs-item"><i></i><b>自动旋转</b></div>
+                <div class="cs-item"><i></i><b>设备互联</b></div>
+                <div class="cs-item"><i></i><b>护眼模式</b></div>
+                <div class="cs-item"><i></i><b>省电模式</b></div>
+                <div class="cs-item"><i></i><b>暗色模式</b></div>
+                <div class="cs-item"><i></i><b>截屏</b></div>
+                <div class="cs-item"><i></i><b>更多</b></div>
+              </div>
+              <div class="cc-dots"><span class="on"></span><span></span></div>
+            </div>
+          </div>
+
+          <!-- 通知 -->
+          <div class="page" data-page="notify">
+            <div class="cc-blur"></div>
+            <div class="nt-page">
+              <div class="nt-tools">
+                <span class="circle-btn"></span><span class="circle-btn"></span><span class="circle-btn"></span>
+              </div>
+              <div class="big-title">通知</div>
+              <div class="nt-list">
+                <div class="nt-item"><span class="nt-app"></span>
+                  <div class="nt-mid"><b>申通快递</b><small>【申通快递】包裹已到镇政府下二百米十字路口左转十米海燕药房，请凭 7-1-1832 领取</small></div>
+                  <em>17:20</em></div>
+                <div class="nt-item"><span class="nt-app blue"></span>
+                  <div class="nt-mid"><b>中国电信</b><small>【中国电信】湛江市公安局反诈中心提醒您：一定不要轻信网上带你投资理财的人</small></div>
+                  <em>14:46</em></div>
+                <div class="nt-item"><span class="nt-app"></span>
+                  <div class="nt-mid"><b>米哈游</b><small>【米哈游】验证码：326081（10 分钟内有效），请勿泄露给他人</small></div>
+                  <em>12:32</em></div>
+                <div class="nt-item"><span class="nt-app orange"></span>
+                  <div class="nt-mid"><b>小米</b><small>【小米】小米账号 12******610 登录验证码 603802，请勿将验证码透露给他人</small></div>
+                  <em>10/21</em></div>
+                <div class="nt-item"><span class="nt-app red"></span>
+                  <div class="nt-mid"><b>京东</b><small>【京东】京造 11.11 大促火热抢购，特送您 120 元会员补贴</small></div>
+                  <em>10/21</em></div>
+              </div>
+              <div class="nt-dock"><span>消息</span><span>通知</span></div>
+              <span class="nt-fab">+</span>
+            </div>
+          </div>
+
+          <!-- 设置 -->
+          <div class="page" data-page="settings">
+            <img class="set-bg" id="setBg" alt="" />
+            <div class="set-body">
+              <div class="big-title">设置</div>
+              <div class="search-pill">搜索设置项<span class="mic"></span></div>
+              <div class="acct-card"><span class="av"></span>
+                <div><b>Kaguya168</b><small>管理账号、云服务、查找</small></div><i>›</i></div>
+              <div class="set-list">
+                <div class="sr"><span class="si-si c1"></span><b>飞行模式</b><span class="toggle"></span></div>
+                <div class="sr"><span class="si-si c2"></span><b>WLAN</b><em>2F_5G</em><i>›</i></div>
+                <div class="sr"><span class="si-si c3"></span><b>蓝牙</b><em>未连接</em><i>›</i></div>
+                <div class="sr"><span class="si-si c4"></span><b>移动网络</b><i>›</i></div>
+                <div class="sr"><span class="si-si c5"></span><b>设备互联</b><i>›</i></div>
+                <div class="sr"><span class="si-si c6"></span><b>桌面、锁屏与个性化</b><i>›</i></div>
+                <div class="sr"><span class="si-si c7"></span><b>显示与亮度</b><i>›</i></div>
+                <div class="sr"><span class="si-si c8"></span><b>声音与振动</b><i>›</i></div>
+                <div class="sr"><span class="si-si c2"></span><b>通知与控制中心</b><i>›</i></div>
+                <div class="sr"><span class="si-si c1"></span><b>电池</b><em>78%</em><i>›</i></div>
+                <div class="sr"><span class="si-si c5"></span><b>应用</b><i>›</i></div>
+                <div class="sr"><span class="si-si c4"></span><b>指纹、面部与密码</b><i>›</i></div>
+                <div class="sr"><span class="si-si c8"></span><b>关于本机</b><em>ColorOS 17</em><i>›</i></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 短信 -->
+          <div class="page" data-page="sms">
+            <img class="set-bg" id="smsBg" alt="" />
+            <div class="set-body">
+              <div class="big-title">信息</div>
+              <div class="search-pill">搜索信息<span class="mic"></span></div>
+              <div class="msg-list">
+                <div class="msg-item"><span class="avatar"></span>
+                  <div class="msg-mid"><b>中国联通</b><small>您本月流量已使用 12.4GB，剩余 8.6GB</small></div><em>18:20</em></div>
+                <div class="msg-item"><span class="avatar a2"></span>
+                  <div class="msg-mid"><b>10086</b><small>您的账单已出账，本期消费 ¥68.00</small></div><em>17:45</em></div>
+                <div class="msg-item"><span class="avatar a3"></span>
+                  <div class="msg-mid"><b>小源</b><small>主题包我拿到了，晚上试一下效果</small></div><em>16:03</em></div>
+                <div class="msg-item"><span class="avatar"></span>
+                  <div class="msg-mid"><b>支付宝</b><small>付款成功 ¥25.00 便利蜂</small></div><em>昨天</em></div>
+                <div class="msg-item"><span class="avatar a2"></span>
+                  <div class="msg-mid"><b>京东</b><small>您的订单已发货，预计明天送达</small></div><em>昨天</em></div>
+                <div class="msg-item"><span class="avatar a3"></span>
+                  <div class="msg-mid"><b>顺丰速运</b><small>您的快件已放置丰巢柜，取件码 8821</small></div><em>10/21</em></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 电话 -->
+          <div class="page" data-page="dialer">
+            <img class="set-bg" id="dialBg" alt="" />
+            <div class="dial-head">
+              <div class="dial-tabs"><span class="on">全部</span><span>未接</span></div>
+              <span class="dial-more">⋮</span>
+            </div>
+            <div class="big-title">通话</div>
+            <div class="call-list">
+              <div class="call-item"><span class="call-ic">电</span>
+                <div class="call-mid"><b>中国电信自助服务热线</b><small>☎ 10001</small></div><em>11:38</em><span class="call-info"></span></div>
+              <div class="call-item"><span class="call-ic">中</span>
+                <div class="call-mid"><b>中国银行</b><small>☎ 95566</small></div><em>10/8</em><span class="call-info"></span></div>
+              <div class="call-item"><span class="call-ic">广</span>
+                <div class="call-mid"><b>020 3985 2853</b><small>广东广州 · 广告推销</small></div><em>8/25</em><span class="call-info"></span></div>
+            </div>
+            <div class="kp-sheet">
+              <div class="kp-handle"></div>
+              <div class="kp-grid">
+                <div class="key"><b>1</b><small>&nbsp;</small></div>
+                <div class="key"><b>2</b><small>ABC</small></div>
+                <div class="key"><b>3</b><small>DEF</small></div>
+                <div class="key"><b>4</b><small>GHI</small></div>
+                <div class="key"><b>5</b><small>JKL</small></div>
+                <div class="key"><b>6</b><small>MNO</small></div>
+                <div class="key"><b>7</b><small>PQRS</small></div>
+                <div class="key"><b>8</b><small>TUV</small></div>
+                <div class="key"><b>9</b><small>WXYZ</small></div>
+                <div class="key"><b>*</b><small>&nbsp;</small></div>
+                <div class="key"><b>0</b><small>+</small></div>
+                <div class="key"><b>#</b><small>&nbsp;</small></div>
+              </div>
+              <div class="kp-actions">
+                <div class="kp-call">中国电信 1</div>
+                <div class="kp-call">中国移动 2</div>
+                <span class="kp-del">×</span>
+              </div>
+              <div class="kp-tabs"><span class="on">通话</span><span>联系人</span><span>营业厅</span></div>
+            </div>
+          </div>
+
+          <!-- 关于本机 -->
+          <div class="page" data-page="about">
+            <img class="about-bgw" id="aboutBg" alt="" />
+            <div class="about-veil"></div>
+            <div class="about-inner">
+              <div class="about-nav"><span class="circle-btn"></span><b>关于本机</b></div>
+              <div class="about-hero"><img id="aboutImg" alt="" /></div>
+              <div class="about-rows">
+                <div class="ar"><span>手机名称</span><b>RMX 5010</b><i>›</i></div>
+                <div class="ar"><span>存储空间</span><b>379 GB / 512 GB</b><i>›</i></div>
+                <div class="ab-bar"><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="ab-model"><b>真我 GT7 Pro</b><small>RMX5010_17.0.0.1(CN01)</small></div>
+                <div class="ar"><span>处理器</span><b>骁龙®8 至尊版移动平台</b></div>
+                <div class="ar"><span>运行内存</span><b>12.0 GB + 12.0 GB</b></div>
+                <div class="ar"><span>电池容量</span><b>6500 mAh</b></div>
+                <div class="ar"><span>屏幕尺寸</span><b>6.78 英寸</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="homebar"></div>
+        </div>
+      </div>
+
+      <div class="stage-side">
+        <div class="mini-card">
+          <label>当前主色</label>
+          <div class="mini-row">
+            <span class="swatch-lg" id="stageSwatch"></span>
+            <code id="stageHex">#42D4E4</code>
+          </div>
+        </div>
+        <div class="mini-card">
+          <label>配色走向</label>
+          <div class="ramp" id="stageRamp"></div>
+        </div>
+        <div class="mini-card">
+          <label>模板预览图</label>
+          <div class="preview-thumbs" id="tplPreviews"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 右侧面板 -->
+  <aside class="panel" id="panel"></aside>
+</main>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="filePick" accept="image/*" hidden />
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ColorOS 17 主题工坊</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo"><span></span></div>
+    <div class="brand-text">
+      <strong>ColorOS 17 主题工坊</strong>
+      <em id="brandSub">Theme Studio · 第三方主题生成器</em>
+    </div>
+  </div>
+  <div class="top-mid">
+    <span class="pill" id="tplPill">未选择模板</span>
+    <span class="pill ghost" id="pkgPill">—</span>
+  </div>
+  <div class="top-actions">
+    <button class="btn ghost" id="btnReloadTpl" title="重新解析模板">重新解析</button>
+    <button class="btn primary" id="btnExportTop">生成主题包</button>
+  </div>
+</header>
+
+<main class="layout">
+  <!-- 左侧步骤 -->
+  <aside class="rail">
+    <nav id="steps">
+      <button class="step" data-step="template"><i>1</i><span>选择模板</span></button>
+      <button class="step" data-step="color"><i>2</i><span>配色方案</span></button>
+      <button class="step" data-step="wallpaper"><i>3</i><span>壁纸</span></button>
+      <button class="step" data-step="icons"><i>4</i><span>图标</span></button>
+      <button class="step" data-step="assets"><i>5</i><span>界面资源</span></button>
+      <button class="step" data-step="meta"><i>6</i><span>信息 / 导出</span></button>
+    </nav>
+
+    <div class="rail-card">
+      <div class="rail-thumb" id="railThumb">无</div>
+      <div class="rail-meta">
+        <strong id="railName">尚未载入模板</strong>
+        <small id="railAuthor">—</small>
+      </div>
+    </div>
+
+    <div class="rail-note">
+      <b>原理</b>
+      <p>以真实 ColorOS 17 主题作为骨架，只替换其中的配色表、壁纸与图标，再按原结构重新打包，兼容性最高。</p>
+    </div>
+  </aside>
+
+  <!-- 中间预览 -->
+  <section class="stage">
+    <div class="stage-head">
+      <div class="seg scroll" id="viewSeg">
+        <button data-view="home" class="on">桌面</button>
+        <button data-view="lock">锁屏</button>
+        <button data-view="cc">控制中心</button>
+        <button data-view="volume">音量</button>
+        <button data-view="notify">通知</button>
+        <button data-view="settings">设置</button>
+        <button data-view="sms">短信</button>
+        <button data-view="dialer">电话</button>
+        <button data-view="about">关于本机</button>
+      </div>
+      <div class="stage-tip" id="stageTip">实时预览</div>
+    </div>
+
+    <div class="stage-body">
+      <div class="phone">
+        <div class="screen" id="screen">
+          <img class="wall" id="wallHome" alt="" />
+          <img class="wall wall-fg" id="wallHomeFg" alt="" />
+          <img class="wall lock-wall" id="wallLock" alt="" />
+          <img class="wall lock-wall wall-fg" id="wallLockFg" alt="" />
+          <div class="wall-shade"></div>
+
+          <div class="statusbar">
+            <span class="sb-left">9:41</span>
+            <span class="sb-right"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span>
+          </div>
+
+          <!-- 桌面 -->
+          <div class="page" data-page="home">
+            <div class="home-top">
+              <div class="clock-widget">
+                <div class="cw-time">9:41</div>
+                <div class="cw-sub">10月23日 星期五 · 晴 24°</div>
+              </div>
+            </div>
+            <div class="grid" id="iconGrid"></div>
+            <div class="dock" id="dockGrid"></div>
+          </div>
+
+          <!-- 锁屏 -->
+          <div class="page" data-page="lock">
+            <div class="lock-top">
+              <div class="lock-date">10月23日 星期五</div>
+              <div class="lock-time">9:41</div>
+              <div class="lock-widget">24° 晴 · 杭州市</div>
+            </div>
+            <div class="lock-bottom">
+              <div class="lock-actions"><span class="la"></span><span class="la"></span></div>
+              <div class="lock-hint">上滑解锁</div>
+            </div>
+          </div>
+
+          <!-- 控制中心 -->
+          <div class="page" data-page="cc">
+            <div class="cc-blur"></div>
+            <div class="cc-body">
+              <div class="cc-media">
+                <span class="cm-cover"></span>
+                <div class="cm-txt"><b>夜に駆ける</b><small>YOASOBI</small></div>
+                <span class="cm-btn"></span>
+              </div>
+              <div class="cc-slider"><i style="width:72%"></i><span>亮度</span></div>
+              <div class="cc-tiles">
+                <div class="tile on"><b>WLAN</b><em>Miku-5G</em></div>
+                <div class="tile on"><b>蓝牙</b><em>已连接</em></div>
+                <div class="tile"><b>移动数据</b><em>5G</em></div>
+                <div class="tile on"><b>静音</b><em>已开启</em></div>
+              </div>
+              <div class="cc-small">
+                <span class="cs on"></span><span class="cs on"></span><span class="cs"></span>
+                <span class="cs"></span><span class="cs"></span><span class="cs on"></span>
+              </div>
+              <div class="cc-foot"><i></i><i></i></div>
+            </div>
+          </div>
+
+          <!-- 音量 -->
+          <div class="page" data-page="volume">
+            <div class="cc-blur"></div>
+            <img class="vol-bg" id="volBg" alt="" />
+            <div class="vol-body">
+              <div class="vol-tabs"><span class="vt on">媒体</span><span class="vt">通话</span><span class="vt">闹钟</span></div>
+              <div class="vol-stack">
+                <div class="vol-row"><span class="v-ic v-media"></span><div class="v-bar"><i style="height:62%"></i></div></div>
+                <div class="vol-row"><span class="v-ic v-ring"></span><div class="v-bar"><i style="height:38%"></i></div></div>
+                <div class="vol-row"><span class="v-ic v-alarm"></span><div class="v-bar"><i style="height:75%"></i></div></div>
+              </div>
+              <div class="vol-foot"><span class="vf-ic"></span><span class="vf-ic"></span></div>
+            </div>
+          </div>
+
+          <!-- 通知 -->
+          <div class="page" data-page="notify">
+            <div class="cc-blur"></div>
+            <div class="nt-body">
+              <div class="nt-title">通知</div>
+              <div class="nt-card">
+                <div class="nt-head"><span class="nt-ic"></span><b>微信</b><em>现在</em></div>
+                <p>在看初音未来的演唱会直播，一起吗？</p>
+              </div>
+              <div class="nt-card">
+                <div class="nt-head"><span class="nt-ic alt"></span><b>哔哩哔哩</b><em>18:20</em></div>
+                <p>你关注的 UP 主更新了：《主题包制作全过程》</p>
+              </div>
+              <div class="nt-card">
+                <div class="nt-head"><span class="nt-ic"></span><b>日历</b><em>17:02</em></div>
+                <p>明天 10:00 与设计组评审主题方案</p>
+              </div>
+              <div class="nt-clear">全部清除</div>
+            </div>
+          </div>
+
+          <!-- 设置 -->
+          <div class="page" data-page="settings">
+            <img class="set-bg" id="setBg" alt="" />
+            <div class="set-body">
+              <div class="set-title">设置</div>
+              <div class="set-search">搜索设置项</div>
+              <div class="set-card">
+                <div class="set-item"><span class="si-ic i1"></span><b>指纹、面部与密码</b><i>›</i></div>
+                <div class="set-item"><span class="si-ic i2"></span><b>隐私与安全</b><i>›</i></div>
+                <div class="set-item"><span class="si-ic i3"></span><b>SOS 紧急联络</b><i>›</i></div>
+                <div class="set-item"><span class="si-ic i4"></span><b>数字健康与家人守护</b><i>›</i></div>
+              </div>
+              <div class="set-card">
+                <div class="set-item"><span class="si-ic i5"></span><b>应用</b><i>›</i></div>
+                <div class="set-item"><span class="si-ic i6"></span><b>电池</b><em>78%</em><i>›</i></div>
+                <div class="set-item"><span class="si-ic i1"></span><b>辅助功能</b><i>›</i></div>
+              </div>
+              <div class="set-card">
+                <div class="set-item"><span class="si-ic i8"></span><b>系统与更新</b><i>›</i></div>
+                <div class="set-item"><span class="si-ic i2"></span><b>关于本机</b><em>ColorOS 17</em><i>›</i></div>
+              </div>
+              <div class="set-tip" id="setTip">设置背景取自模板资源</div>
+            </div>
+          </div>
+
+          <!-- 短信 -->
+          <div class="page" data-page="sms">
+            <img class="set-bg" id="smsBg" alt="" />
+            <div class="set-body">
+              <div class="set-title">信息</div>
+              <div class="set-search">搜索信息</div>
+              <div class="msg-list">
+                <div class="msg-item"><span class="avatar a1"></span>
+                  <div class="msg-mid"><b>中国联通</b><small>您本月流量已使用 12.4GB，剩余 8.6GB</small></div><em>18:20</em></div>
+                <div class="msg-item"><span class="avatar a2"></span>
+                  <div class="msg-mid"><b>10086</b><small>您的账单已出账，本期消费 ¥68.00</small></div><em>17:45</em></div>
+                <div class="msg-item"><span class="avatar a3"></span>
+                  <div class="msg-mid"><b>小源</b><small>主题包我拿到了，晚上试一下效果</small></div><em>16:03</em></div>
+                <div class="msg-item"><span class="avatar a1"></span>
+                  <div class="msg-mid"><b>支付宝</b><small>付款成功 ¥25.00 便利蜂</small></div><em>昨天</em></div>
+                <div class="msg-item"><span class="avatar a2"></span>
+                  <div class="msg-mid"><b>京东</b><small>您的订单已发货，预计明天送达</small></div><em>昨天</em></div>
+              </div>
+              <div class="set-tip" id="smsTip">短信背景取自 mms 包</div>
+            </div>
+          </div>
+
+          <!-- 电话 -->
+          <div class="page" data-page="dialer">
+            <img class="set-bg" id="dialBg" alt="" />
+            <div class="dial-body">
+              <div class="dial-title">通话</div>
+              <div class="dial-recent">
+                <div class="dr-row"><span class="avatar a3"></span><b>小源</b><em>未接来电</em></div>
+                <div class="dr-row"><span class="avatar a2"></span><b>10086</b><em>昨天</em></div>
+              </div>
+              <div class="dial-pad">
+                <div class="key"><b>1</b><small>&nbsp;</small></div>
+                <div class="key"><b>2</b><small>ABC</small></div>
+                <div class="key"><b>3</b><small>DEF</small></div>
+                <div class="key"><b>4</b><small>GHI</small></div>
+                <div class="key"><b>5</b><small>JKL</small></div>
+                <div class="key"><b>6</b><small>MNO</small></div>
+                <div class="key"><b>7</b><small>PQRS</small></div>
+                <div class="key"><b>8</b><small>TUV</small></div>
+                <div class="key"><b>9</b><small>WXYZ</small></div>
+                <div class="key"><b>*</b><small>&nbsp;</small></div>
+                <div class="key"><b>0</b><small>+</small></div>
+                <div class="key"><b>#</b><small>&nbsp;</small></div>
+              </div>
+              <div class="dial-call"><span></span></div>
+              <div class="set-tip" id="dialTip">拨号背景取自电话包</div>
+            </div>
+          </div>
+
+          <!-- 关于本机 -->
+          <div class="page" data-page="about">
+            <div class="about-top">
+              <img id="aboutImg" alt="" />
+              <div class="about-back">‹</div>
+            </div>
+            <div class="about-body">
+              <div class="about-card">
+                <div class="ab-row"><span>手机名称</span><b>Miku Phone</b></div>
+                <div class="ab-row"><span>存储空间</span><b>379 GB / 512 GB</b></div>
+                <div class="ab-bar"><i style="width:26%"></i></div>
+              </div>
+              <div class="about-card">
+                <div class="ab-row"><span>型号</span><b>RMX5000</b></div>
+                <div class="ab-row"><span>处理器</span><b>骁龙 8 至尊版</b></div>
+                <div class="ab-row"><span>运行内存</span><b>12 GB + 12 GB</b></div>
+              </div>
+              <div class="set-tip" id="aboutTip">顶部大图取自设置包</div>
+            </div>
+          </div>
+
+          <div class="homebar"></div>
+        </div>
+      </div>
+
+      <div class="stage-side">
+        <div class="mini-card">
+          <label>当前主色</label>
+          <div class="mini-row">
+            <span class="swatch-lg" id="stageSwatch"></span>
+            <code id="stageHex">#42D4E4</code>
+          </div>
+        </div>
+        <div class="mini-card">
+          <label>配色走向</label>
+          <div class="ramp" id="stageRamp"></div>
+        </div>
+        <div class="mini-card">
+          <label>模板预览图</label>
+          <div class="preview-thumbs" id="tplPreviews"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 右侧面板 -->
+  <aside class="panel" id="panel"></aside>
+</main>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="filePick" accept="image/*" hidden />
+<div class="modal" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

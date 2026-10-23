@@ -1,0 +1,24 @@
+# 生成物与输出
+/output/
+/exports/
+
+# 工作目录（缩略图、上传缓存、临时截图）
+/work/
+
+# 主题模板（二进制，体积大，含版权素材）
+/templates/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 回退备份里的截图
+web/_v3_rebuild/*.jpg
+web/_v3_rebuild/*.png
